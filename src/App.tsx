@@ -5,6 +5,11 @@ import { useThemeMode } from '@/hooks'
 import { store } from '@/store'
 import { ThemeMode } from './types'
 import ThemeModeSwitch from './components/ThemeModeSwitch'
+import LoginPage from './pages/Auth/Login'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { queryClientConfig } from '@/utils'
+
+const queryClient = new QueryClient(queryClientConfig)
 
 function App() {
   const themeMode: ThemeMode = useThemeMode()
@@ -14,11 +19,14 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
-        <div className="App">
-          <ThemeModeSwitch />
-        </div>
+        <QueryClientProvider client={queryClient}>
+          <div className="App">
+            <ThemeModeSwitch />
+            <LoginPage />
+          </div>
+        </QueryClientProvider>
       </ThemeProvider>
-    </Provider>
+    </Provider >
   )
 }
 
