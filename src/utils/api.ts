@@ -18,6 +18,7 @@ const dateTransformer: AxiosRequestTransformer = (data) => {
 export const api = axios.create({
     baseURL: apiUrl,
     transformRequest: [dateTransformer].concat(axios.defaults.transformRequest ?? []),
+    withCredentials: false,
 })
 
 api.interceptors.request.use((config: any) => {
@@ -30,7 +31,7 @@ api.interceptors.request.use((config: any) => {
         config.headers['Authorization'] = `Bearer ${token}`
     }
 
-    config.headers['X-Channel'] = 'web'
+    config.headers['Content-Type'] ='application/x-www-form-urlencoded';
 
     return config
 })
@@ -40,7 +41,6 @@ api.interceptors.response.use(
     (response: any) => response,
     (error: any) => {
         const apiError = new ApiError('Unknown Api Error', 400)
-
         if (error.response) {
             apiError.message = error.response.data.message
             apiError.code = error.response.status

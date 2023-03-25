@@ -30,7 +30,7 @@ const Form = () => {
         validationSchema: createValidationSchema(yup),
         onSubmit: async (values) => {
             const response = await loginMutation.mutateAsync(values)
-            !response.isEmailVerified &&
+            response.jwt &&
                 setVerificationDialog({
                     isOpen: true,
                     email: response.email,

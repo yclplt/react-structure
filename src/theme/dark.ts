@@ -116,7 +116,7 @@ export const dark: ThemeOptions = {
         MuiOutlinedInput: {
             styleOverrides: {
                 notchedOutline: {
-                    borderColor: divider,
+                    borderColor: neutral[500],
                 },
             },
         },
